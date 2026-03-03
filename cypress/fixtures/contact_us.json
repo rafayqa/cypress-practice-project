@@ -1,0 +1,24 @@
+{
+    "dateToSelect": "2026-03-04",
+    "expectedFrontEndDate": "03/04/2026",
+    "minBudget": 45,
+    "maxBudget": 80,
+    "secondPageTitle": "talk budget",
+    "expectedErrorMessages": [
+        "Name is required",
+        "Email is required",
+        "Company name is required"
+    ],
+    "servicesToSelect": [
+        "UX/UI Design",
+        "AI Consulting",
+        "Product Strategy"
+    ],
+    "thirdPageTitle": "Give us the deets",
+    "projectDescription": "This is a test project description.",
+    "mainButtonText": "Send Enquiry",
+    "successMessage": "Thank you",
+    "placeholderText": "Please provide a summary of your project",
+    "placeholderValue": "This is a test project description.",
+    "placeholderTexttoVerify": "This is a test project description."
+}
