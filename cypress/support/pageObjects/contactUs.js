@@ -75,18 +75,61 @@ class ContactUsPage {
         });
     }
 
-    enterDetailsinLastForm() {
-        cy.get('textarea[placeholder = "Please provide a summary of your project"]').should('be.visible').type('This is a test project description.').should('have.value', 'This is a test project description.');
+    // enterDetailsinLastForm(fileName, description) {
+    //     cy.get('textarea[placeholder = "Please provide a summary of your project"]').should('be.visible').clear().type(description).should('have.value', description);
 
-        cy.get('input[type="file"]').should('exist').selectFile('cypress/fixtures/test_file.pdf', { force: true });
+    //     cy.get('input[type="file"]').should('exist').selectFile(`cypress/fixtures/${fileName}`, { force: true });
 
-        cy.get('input[type="file"]')
-            .should(($input) => {
-                const file = $input[0].files[0];
-                expect(file.name).to.eq('test_file.pdf');
-            });
-        cy.get('input[type = "checkbox"]').check({ force: true }).should('be.checked');
+
+
+    //     cy.get('input[type="file"]')
+    //         .should(($input) => {
+    //             const file = $input[0].files[0];
+    //             expect(file.name).to.eq(fileName);
+    //         });
+
+    //     cy.get('svg[stroke="currentColor"][fill="none"][stroke-width="2"]').eq(1)
+    //         .click({ force: true });
+
+    //     if (fileName === 'corrupt.pdf') {
+    //         cy.contains('p', 'The file you uploaded is not valid. Please upload a valid file.').should('be.visible');
+    //     }
+    //     cy.get('input[type = "checkbox"]').check({ force: true }).should('be.checked');
+    // }
+
+  enterDetailsinLastForm(fileName, description, expectedMessage = null) {
+    // Fill project description
+    cy.get('textarea[placeholder="Please provide a summary of your project"]')
+      .should('be.visible')
+      .clear()
+      .type(description)
+      .should('have.value', description);
+
+    // Upload the file
+    cy.get('input[type="file"]').should('exist')
+      .selectFile(`cypress/fixtures/${fileName}`, { force: true });
+
+    // Verify uploaded file name
+    cy.get('input[type="file"]').should(($input) => {
+        const file = $input[0].files[0];
+        expect(file.name).to.eq(fileName);
+    });
+
+    // // Optional: click the cross/remove icon if needed
+    // cy.get('svg[stroke="currentColor"][fill="none"][stroke-width="2"]').eq(1)
+    //   .click({ force: true });
+
+    // Check the required checkbox
+    cy.get('input[type="checkbox"]').check({ force: true }).should('be.checked');
+
+    // Click the Submit / Send Query button
+    cy.get('button').contains('Send Enquiry').click({ force: true });
+
+    // Assert expected message AFTER clicking submit
+    if (expectedMessage) {
+        cy.contains(expectedMessage, { timeout: 5000 }).should('be.visible');
     }
+}
 }
 
 export default ContactUsPage;

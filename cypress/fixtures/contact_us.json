@@ -20,5 +20,22 @@
     "successMessage": "Thank you",
     "placeholderText": "Please provide a summary of your project",
     "placeholderValue": "This is a test project description.",
-    "placeholderTexttoVerify": "This is a test project description."
+    "placeholderTexttoVerify": "This is a test project description.",
+    "files": [
+        {
+            "fileName": "test_file.pdf",
+            "description": "Valid project with proper valid PDF file",
+            "expectedMessage": null
+        },
+        {
+            "fileName": "corrupt.pdf",
+            "description": "Corrupt project file that must be rejected",
+            "expectedMessage": "The file you uploaded is not valid. Please upload a valid file."
+        },
+        {
+            "fileName": "locked.pdf",
+            "description": "Locked file project that should trigger a specific error message",
+            "expectedMessage": "The file you uploaded is locked. Please upload a valid file."
+        }
+    ]
 }
